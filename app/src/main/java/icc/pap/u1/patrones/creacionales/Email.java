@@ -1,4 +1,4 @@
-package icc.pap.u1.patrones;
+package icc.pap.u1.patrones.creacionales;
 
 public class Email implements Notificacion {
     public void enviar() {
