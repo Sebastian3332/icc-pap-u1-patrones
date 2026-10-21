@@ -6,6 +6,7 @@ import icc.pap.u1.patrones.creacionales.FactoryDemo;
 import icc.pap.u1.patrones.creacionales.Notificacion;
 import icc.pap.u1.patrones.factoryMethod.Importador;
 import icc.pap.u1.patrones.factoryMethod.ImportadorPuntoComa;
+import icc.pap.u1.patrones.factoryMethod.ImportadorTabulacion;
 
 public class App {
 
@@ -30,8 +31,10 @@ public class App {
     }
 
     private static void runFactoryMethod() {
-        Importador imPC = new ImportadorPuntoComa();
-
-        System.out.println(imPC.importacion(List.of("S01", "22.5", "C", "S02", "18", "C")));
+        Importador impPC = new ImportadorPuntoComa();
+        System.out.println(impPC.importacion(List.of("SO1;22.5;C","SO2;18;C")));
+        Importador impTab = new ImportadorTabulacion();
+        System.out.println(impTab.importacion(List.of("SO1\t22.5\tC","SO2\t18\tC")));
     }
+
 }

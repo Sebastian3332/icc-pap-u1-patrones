@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImportadorTabulacion extends Importador {
-        @Override
-        protected LectorLinea crearLector() {
-            return new LectorTabulacion();
-        }
 
-        @Override List<Lectura> importacion(List<String> lecturas) {
-            return new ArrayList<>();
-        }
-    
+    @Override
+    protected LectorLinea crearLector() {
+        return new LectorTabulacion();
+    }
+
 }

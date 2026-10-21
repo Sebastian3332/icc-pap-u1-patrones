@@ -3,23 +3,27 @@ package icc.pap.u1.patrones.factoryMethod;
 import java.util.ArrayList;
 import java.util.List;
 
-// mantener el proceso de informacion
+///mantener el proceso de importacion y delega la creacion
 public abstract class Importador {
 
     // Factory Method
     protected abstract LectorLinea crearLector();
 
-    final List<Lectura> importacion(List<String> lecturas) {
-        LectorLinea lector = crearLector(); //Polimorfica
-        List<Lectura> resultado = new ArrayList<>();
-        for(String lectura : lecturas) {
-            if(lectura.isBlank()) continue;
-            try {
-                resultado.add(lector.leer(lectura));
-            } catch (Exception e) {
-                throw new IllegalArgumentException("Linea mal formada");
+    public final List<Lector> importacion(List<String> Lecturas) {
+        LectorLinea lector = crearLector();
+        List<Lector> resultado = new ArrayList<>();
+        for (String lectura : Lecturas) {
+            if (lectura.isBlank()) {
+                continue;
             }
+            try {
+                resultado.add(lector.leerLinea(lectura));
+            } catch (Exception e) {
+                System.out.println("Error en la lectura de la linea: " + lectura);
+            }
+
         }
         return resultado;
     }
+
 }
