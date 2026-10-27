@@ -10,6 +10,11 @@ import icc.pap.u1.patrones.creacionales.prototype.PlantillaEmail;
 import icc.pap.u1.patrones.factoryMethod.Importador;
 import icc.pap.u1.patrones.factoryMethod.ImportadorPuntoComa;
 import icc.pap.u1.patrones.factoryMethod.ImportadorTabulacion;
+import icc.pap.u1.patrones.practica.gestionpedidos.configuracion.ConfiguracionSistema;
+import icc.pap.u1.patrones.practica.gestionpedidos.creadores.CreadorPedido;
+import icc.pap.u1.patrones.practica.gestionpedidos.creadores.CreadorPedidoEnLinea;
+import icc.pap.u1.patrones.practica.gestionpedidos.creadores.CreadorPedidoPresencial;
+import icc.pap.u1.patrones.practica.gestionpedidos.pedidos.Pedido;
 
 public class App {
 
@@ -32,7 +37,8 @@ public class App {
 
         runFactoryMethod();
         // runPrototype();
-        runBuilder();
+        // runBuilder();
+        runPractica();
     }
 
     private static void runFactoryMethod() {
@@ -62,5 +68,42 @@ public class App {
         System.out.println(pizza.descripcion());
         System.out.println(pizza2.descripcion());
     }
+
+    private static void runPractica() {
+
+        ConfiguracionSistema configuracion1 = ConfiguracionSistema.getInstancia();
+
+        ConfiguracionSistema configuracion2 = ConfiguracionSistema.getInstancia();
+
+        System.out.println("Configuracion del sistema");
+        System.out.printf(java.util.Locale.US, "Impuesto: %.1f%%%n", configuracion1.getImpuesto());
+
+        System.out.println();
+
+        CreadorPedido creadorPresencial = new CreadorPedidoPresencial();
+
+        Pedido pedido1 = creadorPresencial.crearPedido("P001", "Ana Torres", 100.00);
+
+        System.out.println("--- Pedido presencial ---"); 
+        pedido1.procesar();
+
+        System.out.println();
+
+        CreadorPedido creadorEnLinea = new CreadorPedidoEnLinea();
+
+        Pedido pedido2 = creadorEnLinea.crearPedido("P002", "Juan Perez", 200.00);
+
+        System.out.println("--- Pedido en linea ---");
+        pedido2.procesar();
+
+        System.out.println();
+
+        System.out.println("Configuracion compartida: " + (configuracion1 == configuracion2));
+
+
+
+
+    }
+
 
 }
