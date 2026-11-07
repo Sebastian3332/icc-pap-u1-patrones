@@ -12,7 +12,7 @@ public class ProxyCanalEnvio implements CanalEnvio {
 
     @Override 
     public void enviar(String destinatario, String mensaje) {
-        System.out.println("Veridicando autorizacion");
+        System.out.println("Verificando autorizacion...");
         if(autorizado) {
             canalReal.enviar(destinatario, mensaje);
         } else {

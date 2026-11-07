@@ -10,6 +10,6 @@ public abstract class Notificacion {
         this.canal = canal;
     }
 
-    public abstract void notificar(String mensaje);
+    public abstract void notificar(String destinatario, String mensaje);
     
 }

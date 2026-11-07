@@ -7,7 +7,7 @@ public class NotificacionSeguridad extends Notificacion {
     }
 
     @Override
-    public void notificar(String mensaje) {
-        canal.enviar("Seguridad" + mensaje);
+    public void notificar(String destinatario, String mensaje) {
+        canal.enviar(destinatario, "Not de Seguridad: " + mensaje);
     }
 }
