@@ -2,6 +2,7 @@ package icc.pap.u1.patrones.comportamiento.observer2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class Estudiante {
@@ -26,10 +27,10 @@ public class Estudiante {
     }
 
     public void setCodigo(String codigo) {
+        if (Objects.equals(this.codigo, codigo)) return;
         String codigoAnt = this.codigo;
         this.codigo = codigo;
-        CambioEstudiante cambio = new CambioEstudiante(this, "codigo", codigoAnt, codigo);
-        notificar(cambio);
+        notificar(new CambioEstudiante(this, "codigo", codigoAnt, codigo));
     }
 
     public String getNombre() {
@@ -37,10 +38,10 @@ public class Estudiante {
     }
 
     public void setNombre(String nombre) {
+        if (Objects.equals(this.nombre, nombre)) return;
         String nombreAnt = this.nombre;
         this.nombre = nombre;
-        CambioEstudiante cambio = new CambioEstudiante(this, "nombre", nombreAnt, nombre);
-        notificar(cambio);
+        notificar(new CambioEstudiante(this, "nombre", nombreAnt, nombre));
     }
 
     public double getPromedio() {
@@ -48,11 +49,10 @@ public class Estudiante {
     }
 
     public void setPromedio(double promedio) {
+        if (Double.compare(this.promedio, promedio) == 0) return;
         double promedioAnt = this.promedio;
         this.promedio = promedio;
-        CambioEstudiante cambio = new CambioEstudiante(this, "promedio", Double.toString(promedioAnt),
-                Double.toString(promedio));
-        notificar(cambio);
+        notificar(new CambioEstudiante(this, "promedio", promedioAnt, promedio));
     }
 
     public int getAsistencias() {
@@ -60,11 +60,10 @@ public class Estudiante {
     }
 
     public void setAsistencias(int asistencias) {
-        String asistenciasAnt = Integer.toString(this.asistencias);
+        if (this.asistencias == asistencias) return;
+        int asistenciasAnt = this.asistencias;
         this.asistencias = asistencias;
-        CambioEstudiante cambio = new CambioEstudiante(this, "asistencias", asistenciasAnt,
-                Integer.toString(asistencias));
-        notificar(cambio);
+        notificar(new CambioEstudiante(this, "asistencias", asistenciasAnt, asistencias));
     }
 
     public Matricula getMatricula() {
@@ -72,14 +71,20 @@ public class Estudiante {
     }
 
     public void setMatricula(Matricula matricula) {
+        if (this.matricula == matricula) return;
         Matricula matriculaAnt = this.matricula;
         this.matricula = matricula;
-        CambioEstudiante cambio = new CambioEstudiante(this, "matricula", matriculaAnt, matricula);
-        notificar(cambio);
+        notificar(new CambioEstudiante(this, "matricula", matriculaAnt, matricula));
     }
 
     public void suscribir(Consumer<CambioEstudiante> observador) {
-        observadores.add(observador);
+        if (!observadores.contains(observador)) {
+            observadores.add(observador);
+        }
+    }
+
+    public void desuscribir(Consumer<CambioEstudiante> observador) {
+        observadores.remove(observador);
     }
 
     public void notificar(CambioEstudiante p) {
@@ -93,5 +98,4 @@ public class Estudiante {
         return "Estudiante [codigo=" + codigo + ", nombre=" + nombre + ", promedio=" + promedio + ", asistencias="
                 + asistencias + ", matricula=" + matricula + "]";
     }
-
 }
